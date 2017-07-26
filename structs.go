@@ -9,10 +9,6 @@ type Ore struct {
 }
 
 //users
-type Users struct {
-	Users []User
-}
-
 type User struct {
 	ID int64 `json:"id"`
 	CreatedAt string `json:"createdAt"`
@@ -24,10 +20,6 @@ type User struct {
 }
 
 //projects
-type Projects struct {
-	Projects []Project
-}
-
 type Project struct {
 	PluginID string `json:"pluginId"`
 	CreatedAt string `json:"createdAt"`
@@ -47,10 +39,6 @@ type Project struct {
 type Category struct {
 	Title string `json:"title"`
 	Icon string `json:"icon"`
-}
-
-type Versions struct {
-	Versions []Version
 }
 
 type Version struct {

@@ -27,14 +27,13 @@ func (ore *Ore) Request(url string) (body []byte) {
 	return
 }
 
-func (ore *Ore) GetProjects() (projects *Projects, err error) {
+func (ore *Ore) GetProjects() (projects *[]Project, err error) {
 	body := ore.Request(projectsUrl)
-	result := make([]Project, 0)
-	err = json.NewDecoder(bytes.NewReader(body)).Decode(result)
+	projects = &[]Project{}
+	err = json.NewDecoder(bytes.NewReader(body)).Decode(projects)
 	if err != nil {
 		panic(err)
 	}
-	projects = &Projects{Projects:result}
 	return
 }
 
@@ -48,14 +47,13 @@ func (ore *Ore) GetProject(name string) (project *Project, err error) {
 	return
 }
 
-func (ore *Ore) GetProjectVersions(name string) (versions *Versions, err error) {
+func (ore *Ore) GetProjectVersions(name string) (versions *[]Version, err error) {
 	body := ore.Request(projectsUrl + name + "/versions")
-	result := make([]Version, 0)
-	err = json.NewDecoder(bytes.NewReader(body)).Decode(result)
+	versions = &[]Version{}
+	err = json.NewDecoder(bytes.NewReader(body)).Decode(versions)
 	if err != nil {
 		panic(err)
 	}
-	versions = &Versions{Versions:result}
 	return
 }
 
@@ -77,25 +75,23 @@ func (ore *Ore) GetRecommendedDownload(name string) string {
 	return project.RecommendedVersion.HRef + "/download"
 }
 
-func (ore *Ore) SearchProjects(query string) (projects *Projects, err error) {
+func (ore *Ore) SearchProjects(query string) (projects *[]Project, err error) {
 	body := ore.Request(projectsUrl + "?q=" + query)
-	result := make([]Project, 0)
-	err = json.NewDecoder(bytes.NewReader(body)).Decode(result)
+	projects = &[]Project{}
+	err = json.NewDecoder(bytes.NewReader(body)).Decode(projects)
 	if err != nil {
 		panic(err)
 	}
-	projects = &Projects{Projects:result}
 	return
 }
 
-func (ore *Ore) GetUsers() (users *Users, err error) {
+func (ore *Ore) GetUsers() (users *[]User, err error) {
 	body := ore.Request(usersUrl)
-	result := make([]User, 0)
-	err = json.NewDecoder(bytes.NewReader(body)).Decode(result)
+	users = &[]User{}
+	err = json.NewDecoder(bytes.NewReader(body)).Decode(users)
 	if err != nil {
 		panic(err)
 	}
-	users = &Users{Users:result}
 	return
 }
 
