@@ -28,12 +28,13 @@ func (ore *Ore) Request(url string) (body []byte) {
 }
 
 func (ore *Ore) GetProjects() (projects *Projects, err error) {
-	projects = &Projects{}
 	body := ore.Request(projectsUrl)
-	err = json.NewDecoder(bytes.NewReader(body)).Decode(projects)
+	result := make([]Project, 0)
+	err = json.NewDecoder(bytes.NewReader(body)).Decode(result)
 	if err != nil {
 		panic(err)
 	}
+	projects = &Projects{Projects:result}
 	return
 }
 
@@ -48,12 +49,13 @@ func (ore *Ore) GetProject(name string) (project *Project, err error) {
 }
 
 func (ore *Ore) GetProjectVersions(name string) (versions *Versions, err error) {
-	versions = &Versions{}
 	body := ore.Request(projectsUrl + name + "/versions")
-	err = json.NewDecoder(bytes.NewReader(body)).Decode(versions)
+	result := make([]Version, 0)
+	err = json.NewDecoder(bytes.NewReader(body)).Decode(result)
 	if err != nil {
 		panic(err)
 	}
+	versions = &Versions{Versions:result}
 	return
 }
 
@@ -76,22 +78,24 @@ func (ore *Ore) GetRecommendedDownload(name string) string {
 }
 
 func (ore *Ore) SearchProjects(query string) (projects *Projects, err error) {
-	projects = &Projects{}
 	body := ore.Request(projectsUrl + "?q=" + query)
-	err = json.NewDecoder(bytes.NewReader(body)).Decode(projects)
+	result := make([]Project, 0)
+	err = json.NewDecoder(bytes.NewReader(body)).Decode(result)
 	if err != nil {
 		panic(err)
 	}
+	projects = &Projects{Projects:result}
 	return
 }
 
 func (ore *Ore) GetUsers() (users *Users, err error) {
-	users = &Users{}
 	body := ore.Request(usersUrl)
-	err = json.NewDecoder(bytes.NewReader(body)).Decode(users)
+	result := make([]User, 0)
+	err = json.NewDecoder(bytes.NewReader(body)).Decode(result)
 	if err != nil {
 		panic(err)
 	}
+	users = &Users{Users:result}
 	return
 }
 
